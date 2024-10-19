@@ -2,6 +2,13 @@
 
 @section('content')
 <div class="container">
+
+    @if(session('success'))
+    <div class="alert alert-danger">
+        {{ session('success') }}
+    </div>
+    @endif
+
     <h1>Orders</h1>
     <table class="table">
         <thead>
@@ -10,6 +17,7 @@
                 <th>Date</th>
                 <th>Products</th>
                 <th>Total Price</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +31,13 @@
                     @endforeach
                 </td>
                 <td>${{ $order->total_price }}</td>
+                <td>
+                    <form action="{{ route('orders.destroy', $order->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>

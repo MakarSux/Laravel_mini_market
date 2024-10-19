@@ -34,7 +34,7 @@
     </table>
     <form action="{{ route('orders.checkout') }}" method="POST">
         @csrf
-        <button type="submit" class="btn btn-success">Checkout</button>
+        <button type="submit" class="btn btn-success">Оформить заказ</button>
     </form>
     @else
     <p>Your cart is empty.</p>

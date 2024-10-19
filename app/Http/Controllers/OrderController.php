@@ -27,11 +27,22 @@ class OrderController extends Controller
         $order = Order::create(['total_price' => $total]);
 
         foreach($cart as $item){
-            $order->products()->attach($item['id'], ['quantity' => $item['quantity']]);
+            $order->products()->attach($item['id'], [
+                'quantity' => $item['quantity'],
+                'price' => $item['price']
+            ]);
         }
 
         session()->forget('cart');
         return redirect()->route('products.index')->with('success', 'Заказ успешно оформлен');
+    }
+
+    public function destroy($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->products()->detach();
+        $order->delete();
+        return redirect()->route('orders.index')->with('success', 'Заказ удален');
     }
 
     public function orders()
@@ -39,5 +50,4 @@ class OrderController extends Controller
         $orders = Order::all();
         return view('orders.index', compact('orders'));
     }
-
 }

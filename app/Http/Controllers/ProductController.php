@@ -30,7 +30,7 @@ class ProductController extends Controller
         }
 
         session()->put('cart', $cart);
-        return redirect()->back()-with('success', 'Продукт успешно добавлен в корзину');
+        return redirect()->back()->with('success', 'Продукт успешно добавлен в корзину');
     }
 }
 

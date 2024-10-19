@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    //
+    protected $fillable = ['total_price'];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'order_products')
+                    ->withPivot('quantity', 'price');
+    }
 }
